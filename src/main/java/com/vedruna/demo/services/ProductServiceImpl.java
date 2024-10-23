@@ -7,23 +7,21 @@ import org.springframework.stereotype.Service;
 
 import com.vedruna.demo.persistance.models.Product;
 import com.vedruna.demo.persistance.repository.ProductRepositoryI;
-
 @Service
 public class ProductServiceImpl implements ProductServiceI {
+    
     @Autowired
     ProductRepositoryI productRepo;
 
-   
     @Override
     public List<Product> showAllProducts() {
         return productRepo.findAll();
-}
+    }
 
-   @Override 
-   public Product showProductByProductName(String productName) {
-       return productRepo.findByProductName(productName);
-   }
-
+    @Override
+    public Product showProductByProductName(String productName) {
+        return productRepo.findByProductName(productName);
+    }
 
     @Override
     public Product showProductByProductPrice(double productPrice) {
@@ -32,7 +30,7 @@ public class ProductServiceImpl implements ProductServiceI {
 
     @Override
     public Product showProductByProductNameAndProductPrice(String productName, double productPrice) {
-        return productRepo.findByproductNameAndEmail(productName, productPrice);
+        return productRepo.findByProductNameAndProductPrice(productName, productPrice); 
     }
 
     @Override
@@ -42,12 +40,16 @@ public class ProductServiceImpl implements ProductServiceI {
 
     @Override
     public void updateProduct(Long id, Product product) {
-        productRepo.save(product);
+        if (productRepo.existsById(id)) { 
+            product.setProductId(id); 
+            productRepo.save(product);
+        }
     }
 
     @Override
     public void deleteProduct(Long id) {
-        productRepo.deleteById(id);
+        if (productRepo.existsById(id)) { 
+            productRepo.deleteById(id);
+        }
     }
-
 }
