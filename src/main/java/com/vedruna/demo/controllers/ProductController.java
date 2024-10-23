@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vedruna.demo.persistance.models.Product;
 import com.vedruna.demo.services.ProductServiceI;
 
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
 @RequestMapping("/api/v1/product") 
+@CrossOrigin(origins = "http://127.0.0.1:5500") // Añado CORS a los controladores 
 public class ProductController {
 
     @Autowired
